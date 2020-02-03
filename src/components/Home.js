@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 
 const Home = () => (
   <div>
-    <h1>Make your mark without leaving a mark.</h1>
-    <Button>Shop Products</Button>
+    <h1>Awesome Website Title</h1>
+    <p>Time to create an awesome website.</p>
+    <Button>{'Let\'s go'}</Button>
   </div>
 );
 

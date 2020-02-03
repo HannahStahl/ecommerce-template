@@ -2,8 +2,8 @@ import React from 'react';
 
 const Portfolio = () => (
   <div>
-    <h1>Products Page</h1>
-    <p>Insert products here.</p>
+    <h1>Portfolio Page</h1>
+    <p>Insert portfolio or products here.</p>
   </div>
 );
 
