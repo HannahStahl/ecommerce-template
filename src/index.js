@@ -13,6 +13,7 @@ import Item from './components/Item';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import config from './config';
 
 const Routes = ({ items }) => (
@@ -54,6 +55,7 @@ const App = withRouter(() => {
       <div className="page-content">
         <Routes items={items} />
       </div>
+      {window.location.pathname !== '/' && <Footer />}
     </>
   );
 });
