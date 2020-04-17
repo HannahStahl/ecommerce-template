@@ -5,7 +5,21 @@ const Items = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch(`${config.apiURL}/publishedItems/${config.userID}`).then((res) => res.json()).then(setItems);
+    Promise.all([
+      fetch(`${config.apiURL}/publishedItems/${config.userID}`).then((res) => res.json()),
+      fetch(`${config.apiURL}/itemsToPhotos/${config.userID}`).then((res) => res.json()),
+      fetch(`${config.apiURL}/photos/${config.userID}`).then((res) => res.json()),
+    ]).then((results) => {
+      const [itemsList, itemsToPhotos, photos] = results;
+      itemsList.forEach((item, index) => {
+        const photoIds = itemsToPhotos
+          .filter((row) => row.itemId === item.itemId)
+          .map((row) => row.photoId);
+        const itemPhoto = photos.find((photoInList) => photoInList.photoId === photoIds[0]);
+        itemsList[index].itemPhoto = itemPhoto.photoName;
+      });
+      setItems(itemsList);
+    });
   }, []);
 
   return (
@@ -13,8 +27,9 @@ const Items = () => {
       <h1>Items Page</h1>
       <div className="items">
         {items.map((item) => (
-          <div className="item">
-            {item.itemName}
+          <div key={item.itemId} className="item">
+            <img src={`${config.cloudfrontURL}/${item.itemPhoto}`} alt={item.itemName} className="item-img" />
+            <h3>{item.itemName}</h3>
           </div>
         ))}
       </div>
