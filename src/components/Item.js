@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config';
 
-const Item = ({ match }) => {
+const Item = ({ match, items }) => {
   const [item, setItem] = useState(undefined);
 
   useEffect(() => {
-    fetch(`${config.apiURL}/publishedItems/${config.userID}`).then((res) => res.json()).then((items) => {
-      const itemName = unescape(match.params.itemName).replace(/_/g, ' ');
-      const itemDetails = items.find((itemInList) => (
-        itemInList.itemName.toLowerCase() === itemName.toLowerCase()
-      ));
-      Promise.all([
-        fetch(`${config.apiURL}/itemsToPhotos/${config.userID}/${itemDetails.itemId}`).then((res) => res.json()),
-        fetch(`${config.apiURL}/photos/${config.userID}`).then((res) => res.json()),
-      ]).then((results) => {
-        const [itemsToPhotos, photos] = results;
-        const photoIds = itemsToPhotos.map((row) => row.photoId);
-        itemDetails.itemPhotos = photos.filter((photo) => photoIds.includes(photo.photoId));
-        setItem(itemDetails);
-      });
-    });
-  }, [match.params.itemName]);
+    const itemName = unescape(match.params.itemName).replace(/_/g, ' ');
+    const itemDetails = items.find((itemInList) => (
+      itemInList.itemName.toLowerCase() === itemName.toLowerCase()
+    ));
+    setItem(itemDetails);
+  }, [match.params.itemName, items]);
 
   return (
     <div>
