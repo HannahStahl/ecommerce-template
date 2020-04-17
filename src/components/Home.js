@@ -8,7 +8,7 @@ const Home = () => (
     <div>
       <h1>Awesome Website Title</h1>
       <p>Time to create an awesome website.</p>
-      <a href="/items"><Button>{'Let\'s go'}</Button></a>
+      <a href="/items"><Button variant="outline-dark">{'Let\'s go'}</Button></a>
     </div>
   </>
 );
