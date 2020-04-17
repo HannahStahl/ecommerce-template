@@ -9,6 +9,7 @@ import * as serviceWorker from './serviceWorker';
 import Home from './components/Home';
 import About from './components/About';
 import Items from './components/Items';
+import Item from './components/Item';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 import NavBar from './components/NavBar';
@@ -18,6 +19,7 @@ const Routes = () => (
     <Route path="/" exact component={Home} />
     <Route path="/about" exact component={About} />
     <Route path="/items" exact component={Items} />
+    <Route path="/items/:itemName" exact component={Item} />
     <Route path="/contact" exact component={Contact} />
     <Route component={NotFound} />
   </Switch>

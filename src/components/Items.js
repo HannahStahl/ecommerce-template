@@ -24,13 +24,21 @@ const Items = () => {
 
   return (
     <div>
-      <h1>Items Page</h1>
+      <h1>Items</h1>
       <div className="items">
         {items.map((item) => (
-          <div key={item.itemId} className="item">
-            <img src={`${config.cloudfrontURL}/${item.itemPhoto}`} alt={item.itemName} className="item-img" />
+          <a
+            key={item.itemId}
+            href={escape(`/items/${item.itemName.replace(/ /g, '_').toLowerCase()}`)}
+            className="item"
+          >
+            <img
+              src={`${config.cloudfrontURL}/${item.itemPhoto}`}
+              alt={item.itemName}
+              className="item-img"
+            />
             <h3>{item.itemName}</h3>
-          </div>
+          </a>
         ))}
       </div>
     </div>

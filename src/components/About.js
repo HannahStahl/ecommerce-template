@@ -3,7 +3,7 @@ import content from '../content.json';
 
 const About = () => (
   <div>
-    <h1>About Page</h1>
+    <h1>About</h1>
     <p>{content.bio}</p>
   </div>
 );
