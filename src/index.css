@@ -27,3 +27,22 @@ code {
   object-fit: cover;
   z-index: -1;
 }
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
+  width: 20%;
+  min-width: 300px;
+  margin: 20px;
+  height: 20%;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px black;
+}
