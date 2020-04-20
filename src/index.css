@@ -100,6 +100,9 @@ code {
 
 .cart-icon-container {
   position: relative;
+  width: 30px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .active > .cart-icon-container .cart-icon {
