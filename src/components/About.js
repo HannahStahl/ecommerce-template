@@ -4,7 +4,7 @@ import content from '../content.json';
 const About = () => (
   <div>
     <h1>About</h1>
-    <p>{content.bio}</p>
+    {content.bio.map((paragraph) => <p>{paragraph}</p>)}
   </div>
 );
 
