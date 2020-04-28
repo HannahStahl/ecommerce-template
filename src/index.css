@@ -132,6 +132,45 @@ code {
   width: 75px;
 }
 
+.checkout-form .card-field {
+  margin-bottom: 15px;
+  background-color: white;
+  padding: 11px 16px;
+  border-radius: 6px;
+  border: 1px solid #CCC;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  line-height: 1.3333333;
+}
+
+.checkout-form-container {
+  padding-top: 30px;
+}
+
+.checkout-form .card-field.StripeElement--focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+  border-color: #66AFE9;
+}
+
+.checkout-success .modal-header {
+  border-bottom: none;
+}
+
+.checkout-success .modal-header button.close:focus {
+  outline: none;
+}
+
+.checkout-success .modal-body {
+  padding-top: 0px;
+  padding-bottom: 60px;
+}
+
+@media all and (min-width: 480px) {
+  .checkout-form-container form {
+    margin: 0 auto;
+    max-width: 480px;
+  }
+}
+
 @media all and (hover: hover) {
   .nav-link:hover > .cart-icon-container .cart-icon {
     stroke: rgba(0, 0, 0, 0.9);
