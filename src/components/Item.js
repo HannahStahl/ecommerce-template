@@ -28,8 +28,7 @@ const Item = ({ match, items, updateCart }) => {
     } else {
       cart = [newCartItem];
     }
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCart();
+    updateCart(cart);
   };
 
   return (

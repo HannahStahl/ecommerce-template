@@ -34,8 +34,7 @@ const Cart = ({ items, cart, updateCart }) => {
     if ((/^(\s*|\d+)$/).test(newQuantity)) {
       const updatedCart = cart;
       updatedCart[index].quantity = parseInt(newQuantity);
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
-      updateCart();
+      updateCart(updatedCart);
     }
   };
 
@@ -58,8 +57,7 @@ const Cart = ({ items, cart, updateCart }) => {
           alert('Oops! An error occurred with our payment processing system. Please use the Contact form to send us a message, and we\'ll get it straightened out right away.');
           setIsLoading(false);
         } else {
-          localStorage.setItem('cart', JSON.stringify([]));
-          updateCart();
+          updateCart([]);
           setShowSuccessModal(true);
         }
       });

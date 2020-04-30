@@ -33,7 +33,8 @@ const App = withRouter(() => {
   const [items, setItems] = useState([]);
   const [cart, setCart] = useState([]);
 
-  const updateCart = () => {
+  const updateCart = (newCart) => {
+    if (newCart) localStorage.setItem('cart', JSON.stringify(newCart));
     const cartStr = localStorage.getItem('cart');
     setCart(cartStr ? JSON.parse(cartStr) : []);
   };
