@@ -91,7 +91,11 @@ const Cart = ({ items, cart, updateCart }) => {
             <p>{`Total: $${total}`}</p>
             <div className="checkout-form-container">
               <StripeProvider stripe={stripe}>
-                <Elements>
+                <Elements
+                  fonts={[{
+                    cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap',
+                  }]}
+                >
                   <CheckoutForm isLoading={isLoading} onSubmit={handleSubmit} />
                 </Elements>
               </StripeProvider>

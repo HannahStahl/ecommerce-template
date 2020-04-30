@@ -36,9 +36,7 @@ const CheckoutForm = ({ isLoading, onSubmit, ...props }) => {
           base: {
             fontSize: '16px',
             color: '#495057',
-            fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-              "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-              sans-serif`,
+            fontFamily: "'Manrope', sans-serif",
           },
         }}
       />
