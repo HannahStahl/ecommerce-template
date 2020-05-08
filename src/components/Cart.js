@@ -56,28 +56,43 @@ const Cart = ({ items, cart, updateCart }) => {
           alert('Oops! An error occurred with our payment processing system. Please use the Contact form to send us a message, and we\'ll get it straightened out right away.');
           setIsLoading(false);
         } else {
-          fetch(config.emailURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name,
-              userEmail: email,
-              clientEmail: config.emailAddress,
-              siteDomain: window.location.origin,
-              items: cart.map((item) => {
-                const itemDetails = getItemDetails(items, item);
-                return {
-                  name: itemDetails.itemName,
-                  price: getItemPrice(itemDetails),
-                  quantity: item.quantity,
-                  link: escape(`/items/${itemDetails.itemName.replace(/ /g, '_').toLowerCase()}`),
-                };
-              }),
-              orderTotal: total,
-              orderNotification: true,
-              address: [address, `${city}, ${state} ${zip}`],
+          const emailRequestBody = {
+            name,
+            userEmail: email,
+            clientEmail: config.emailAddress,
+            siteDomain: window.location.origin,
+            items: cart.map((item) => {
+              const itemDetails = getItemDetails(items, item);
+              return {
+                name: itemDetails.itemName,
+                price: getItemPrice(itemDetails),
+                quantity: item.quantity,
+                link: escape(`/items/${itemDetails.itemName.replace(/ /g, '_').toLowerCase()}`),
+              };
             }),
-          }).then((response) => response.json()).then(() => {
+            orderTotal: total,
+            address: [address, `${city}, ${state} ${zip}`],
+          };
+          const emailsToSend = [
+            fetch(config.emailURL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                ...emailRequestBody,
+                orderNotification: true,
+              }),
+            }),
+            fetch(config.emailURL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                ...emailRequestBody,
+                orderConfirmation: true,
+                businessName: config.businessName,
+              }),
+            }),
+          ];
+          Promise.all(emailsToSend).then(() => {
             updateCart([]);
             setShowSuccessModal(true);
           });

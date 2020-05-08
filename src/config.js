@@ -5,6 +5,7 @@ const dev = {
   emailAddress: 'hannahstahl14@gmail.com',
   userID: 'us-east-1:34ee9094-c95a-4f8f-b2c2-551ef33bd49f',
   stripeKey: 'pk_test_meScYDjalEIH2Hrgp9DRRXiI',
+  businessName: 'WBH Template - Dev',
 };
 
 const prod = {
@@ -14,6 +15,7 @@ const prod = {
   emailAddress: 'hannahstahl14@gmail.com', // Change to client's email address
   userID: 'us-east-1:e51b2b71-8b21-46c0-a302-6f3b84783041', // Change to client's user ID
   stripeKey: 'pk_live_I9Ef3jCoWQ6uj7bodYY5GyFw', // Change to client's production Stripe key
+  businessName: 'WBH Template', // Change to client's business name
 };
 
 // Default to dev if not set
