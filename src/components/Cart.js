@@ -61,8 +61,8 @@ const Cart = ({ items, cart, updateCart }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               name,
-              email,
-              sourceEmail: config.emailAddress,
+              userEmail: email,
+              clientEmail: config.emailAddress,
               siteDomain: window.location.origin,
               items: cart.map((item) => {
                 const itemDetails = getItemDetails(items, item);

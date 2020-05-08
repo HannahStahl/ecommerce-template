@@ -25,9 +25,9 @@ const Contact = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name,
-        email,
         message,
-        sourceEmail: config.emailAddress,
+        userEmail: email,
+        clientEmail: config.emailAddress,
         siteDomain: window.location.origin,
       }),
     }).then((response) => response.json()).then((json) => {
