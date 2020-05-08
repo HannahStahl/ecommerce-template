@@ -12,7 +12,7 @@ const prod = {
   cloudfrontBaseURL: 'https://d1esxin5o90ebg.cloudfront.net',
   emailURL: 'https://aiikn63n03.execute-api.us-east-1.amazonaws.com/prod/email/send',
   emailAddress: 'hannahstahl14@gmail.com', // Change to client's email address
-  userID: 'us-east-1:34ee9094-c95a-4f8f-b2c2-551ef33bd49f', // Change to client's user ID
+  userID: 'us-east-1:e51b2b71-8b21-46c0-a302-6f3b84783041', // Change to client's user ID
   stripeKey: 'pk_live_I9Ef3jCoWQ6uj7bodYY5GyFw', // Change to client's production Stripe key
 };
 
