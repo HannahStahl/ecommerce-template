@@ -4,17 +4,13 @@ import { Elements, StripeProvider } from 'react-stripe-elements';
 import config from '../config';
 import CheckoutForm from './CheckoutForm';
 import CheckoutSuccess from './CheckoutSuccess';
+import { getItemDetails, getItemPrice } from '../utils';
 
 const Cart = ({ items, cart, updateCart }) => {
   const [stripe, setStripe] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [total, setTotal] = useState(0);
-
-  const getItemDetails = (item) => items.find((itemInList) => itemInList.itemId === item.itemId);
-  const getItemPrice = (itemDetails) => (
-    itemDetails.itemOnSale ? itemDetails.itemSalePrice : itemDetails.itemPrice
-  );
 
   useEffect(() => {
     setStripe(window.Stripe(config.stripeKey));
@@ -24,7 +20,7 @@ const Cart = ({ items, cart, updateCart }) => {
     if (items.length > 0 && cart.length > 0) {
       let runningTotal = 0;
       cart.forEach((item) => {
-        runningTotal += getItemPrice(getItemDetails(item)) * item.quantity;
+        runningTotal += getItemPrice(getItemDetails(items, item)) * item.quantity;
       });
       setTotal(runningTotal);
     }
@@ -68,7 +64,7 @@ const Cart = ({ items, cart, updateCart }) => {
               sourceEmail: config.emailAddress,
               siteDomain: window.location.origin,
               items: cart.map((item) => {
-                const itemDetails = getItemDetails(item);
+                const itemDetails = getItemDetails(items, item);
                 return {
                   name: itemDetails.itemName,
                   price: getItemPrice(itemDetails),
@@ -100,7 +96,7 @@ const Cart = ({ items, cart, updateCart }) => {
           <>
             {cart.map((item, index) => (
               <div key={item.itemId} className="cart-item">
-                <p className="cart-item-name">{getItemDetails(item).itemName}</p>
+                <p className="cart-item-name">{getItemDetails(items, item).itemName}</p>
                 <FormControl
                   type="text"
                   value={item.quantity}
