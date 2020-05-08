@@ -49,6 +49,7 @@ const Cart = ({ items, cart, updateCart }) => {
           amount: total,
           description: config.businessName,
           source: token.id,
+          email,
         }),
       }).then((res) => res.json()).then((json) => {
         if (json.error) {
