@@ -11,6 +11,11 @@ const Cart = ({ items, cart, updateCart }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [total, setTotal] = useState(0);
 
+  const getItemDetails = (item) => items.find((itemInList) => itemInList.itemId === item.itemId);
+  const getItemPrice = (itemDetails) => (
+    itemDetails.itemOnSale ? itemDetails.itemSalePrice : itemDetails.itemPrice
+  );
+
   useEffect(() => {
     setStripe(window.Stripe(config.stripeKey));
   }, []);
@@ -19,12 +24,7 @@ const Cart = ({ items, cart, updateCart }) => {
     if (items.length > 0 && cart.length > 0) {
       let runningTotal = 0;
       cart.forEach((item) => {
-        const itemDetails = items.find((itemInList) => itemInList.itemId === item.itemId);
-        if (itemDetails.itemOnSale) {
-          runningTotal += itemDetails.itemSalePrice * item.quantity;
-        } else {
-          runningTotal += itemDetails.itemPrice * item.quantity;
-        }
+        runningTotal += getItemPrice(getItemDetails(item)) * item.quantity;
       });
       setTotal(runningTotal);
     }
@@ -38,7 +38,9 @@ const Cart = ({ items, cart, updateCart }) => {
     }
   };
 
-  const handleSubmit = async ({ token, error }) => {
+  const handleSubmit = async ({
+    token, error, name, email, address, city, state, zip,
+  }) => {
     if (error) {
       alert(error);
       return;
@@ -57,8 +59,31 @@ const Cart = ({ items, cart, updateCart }) => {
           alert('Oops! An error occurred with our payment processing system. Please use the Contact form to send us a message, and we\'ll get it straightened out right away.');
           setIsLoading(false);
         } else {
-          updateCart([]);
-          setShowSuccessModal(true);
+          fetch(config.emailURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              email,
+              sourceEmail: config.emailAddress,
+              siteDomain: window.location.origin,
+              items: cart.map((item) => {
+                const itemDetails = getItemDetails(item);
+                return {
+                  name: itemDetails.itemName,
+                  price: getItemPrice(itemDetails),
+                  quantity: item.quantity,
+                  link: escape(`/items/${itemDetails.itemName.replace(/ /g, '_').toLowerCase()}`),
+                };
+              }),
+              orderTotal: total,
+              orderNotification: true,
+              address: [address, `${city}, ${state} ${zip}`],
+            }),
+          }).then((response) => response.json()).then(() => {
+            updateCart([]);
+            setShowSuccessModal(true);
+          });
         }
       });
     } catch (e) {
@@ -75,9 +100,7 @@ const Cart = ({ items, cart, updateCart }) => {
           <>
             {cart.map((item, index) => (
               <div key={item.itemId} className="cart-item">
-                <p className="cart-item-name">
-                  {items.find((itemInList) => itemInList.itemId === item.itemId).itemName}
-                </p>
+                <p className="cart-item-name">{getItemDetails(item).itemName}</p>
                 <FormControl
                   type="text"
                   value={item.quantity}

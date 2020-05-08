@@ -43,7 +43,9 @@ const CheckoutForm = ({ isLoading, onSubmit, ...props }) => {
     setIsProcessing(true);
     const { token, error } = await props.stripe.createToken({ name });
     setIsProcessing(false);
-    onSubmit({ token, error });
+    onSubmit({
+      token, error, name, email, address, city, state: state.value, zip,
+    });
   };
 
   return (
