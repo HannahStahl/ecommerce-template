@@ -12,8 +12,8 @@ const prod = {
   cloudfrontBaseURL: 'https://d1esxin5o90ebg.cloudfront.net',
   emailURL: 'https://aiikn63n03.execute-api.us-east-1.amazonaws.com/prod/email/send',
   emailAddress: 'clientemailaddress@gmail.com',
-  userID: 'client-user-id',
-  stripeKey: 'client-prod-stripe-key',
+  userID: 'us-east-1:34ee9094-c95a-4f8f-b2c2-551ef33bd49f', // Change to client's user ID
+  stripeKey: 'pk_live_I9Ef3jCoWQ6uj7bodYY5GyFw', // Change to client's production Stripe key
 };
 
 // Default to dev if not set
